@@ -5,10 +5,15 @@ import { Button } from "@/components/ui/button"
 import { TrendingUp, BarChart3, FileText, Download, DollarSign, Users, Activity, Target } from "lucide-react"
 import Link from "next/link"
 import { Sidebar } from "@/components/sidebar"
-import Chart1 from "@/data-chart/line/1"
-import Chart2 from "@/data-chart/bar/1"
-import Chart3 from "@/data-chart/pie/1"
-import { ChartWrapper } from "@/data-chart/wrapper"
+// Remove these lines:
+// import Chart1 from "@/data-chart/line/1"
+// import Chart2 from "@/data-chart/bar/1"
+// import Chart3 from "@/data-chart/pie/1"
+// import { ChartWrapper } from "@/data-chart/wrapper"
+
+import { RevenueTrendChart } from "@/components/charts/revenue-trend-chart"
+import { PaymentComparisonChart } from "@/components/charts/payment-comparison-chart"
+import { DepartmentAnalysisChart } from "@/components/charts/department-analysis-chart"
 
 export default function ManajemenDashboard() {
   return (
@@ -75,7 +80,7 @@ export default function ManajemenDashboard() {
               <CardDescription>Analisis pendapatan 6 bulan terakhir</CardDescription>
             </CardHeader>
             <CardContent>
-              <ChartWrapper content={Chart1} className="aspect-[4/3]" title="Revenue Trend Chart" />
+              <RevenueTrendChart />
             </CardContent>
           </Card>
 
@@ -85,7 +90,7 @@ export default function ManajemenDashboard() {
               <CardDescription>Distribusi sumber pendapatan</CardDescription>
             </CardHeader>
             <CardContent>
-              <ChartWrapper content={Chart2} className="aspect-[4/3]" title="Revenue Source Comparison" />
+              <PaymentComparisonChart />
             </CardContent>
           </Card>
         </div>
@@ -97,7 +102,7 @@ export default function ManajemenDashboard() {
               <CardDescription>Kontribusi pendapatan per departemen</CardDescription>
             </CardHeader>
             <CardContent>
-              <ChartWrapper content={Chart3} className="aspect-[4/3]" title="Department Revenue Analysis" />
+              <DepartmentAnalysisChart />
             </CardContent>
           </Card>
 

@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Download, FileText, BarChart3, TrendingUp, Calendar, Filter, Eye } from "lucide-react"
 import { Sidebar } from "@/components/sidebar"
-import Chart1 from "@/data-chart/line/2"
-import Chart2 from "@/data-chart/bar/3"
-import Chart3 from "@/data-chart/pie/2"
-import { ChartWrapper } from "@/data-chart/wrapper"
+// Remove these lines:
+// import Chart1 from "@/data-chart/line/2"
+// import Chart2 from "@/data-chart/bar/3"
+// import Chart3 from "@/data-chart/pie/2"
+// import { ChartWrapper } from "@/data-chart/wrapper"
 
 export default function ManajemenReportsPage() {
   const reports = [
@@ -95,7 +96,12 @@ export default function ManajemenReportsPage() {
               <CardDescription>6 bulan terakhir</CardDescription>
             </CardHeader>
             <CardContent>
-              <ChartWrapper content={Chart1} className="aspect-[4/3]" title="Revenue Trend" />
+              <div className="h-[200px] flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <TrendingUp className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-500">Revenue Trend</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -105,7 +111,12 @@ export default function ManajemenReportsPage() {
               <CardDescription>Kontribusi pendapatan</CardDescription>
             </CardHeader>
             <CardContent>
-              <ChartWrapper content={Chart2} className="aspect-[4/3]" title="Department Comparison" />
+              <div className="h-[200px] flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <BarChart3 className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-500">Department Comparison</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -115,7 +126,12 @@ export default function ManajemenReportsPage() {
               <CardDescription>BPJS vs Mandiri</CardDescription>
             </CardHeader>
             <CardContent>
-              <ChartWrapper content={Chart3} className="aspect-[4/3]" title="Payment Distribution" />
+              <div className="h-[200px] flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <BarChart3 className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-500">Payment Distribution</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
