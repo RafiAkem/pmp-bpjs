@@ -1,30 +1,18 @@
 # Web app prototype
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
-
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/rafiakems-projects/v0-web-app-prototype)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/3ZFrwBt62Ds)
+[![Deployed on Vercel]()]
+[![Built with NextJS]()]
 
 ## Overview
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+Repository ini adalah Prototype Untuk Sistem Keuangan & Administrasi Puskesmas.
 
+- Multi-user Dashboard (Admin, Bendahara, Manajemen)
+- Pencatatan transaksi BPJS dan pembayaran Mandiri
+- Laporan keuangan dengan grafik dan analisis tren.
+- Integrasi dengan sistem BPJS untuk klaim otomatis.
+- Fitur Audit trail untuk transparansi transaksi.
+- Penyimpanan data dengan enkripsi dan akses terbatas.
 ## Deployment
 
-Your project is live at:
-
-**[https://vercel.com/rafiakems-projects/v0-web-app-prototype](https://vercel.com/rafiakems-projects/v0-web-app-prototype)**
-
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/3ZFrwBt62Ds](https://v0.dev/chat/projects/3ZFrwBt62Ds)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Project is live at : https://kuadpmp.vercel.app
