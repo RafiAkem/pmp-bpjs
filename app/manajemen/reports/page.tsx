@@ -1,249 +1,382 @@
 "use client"
 
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Download, FileText, BarChart3, TrendingUp, Calendar, Filter, Eye } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Download, Calendar, Filter, Printer, FileText } from "lucide-react"
 import { Sidebar } from "@/components/sidebar"
-// Remove these lines:
-// import Chart1 from "@/data-chart/line/2"
-// import Chart2 from "@/data-chart/bar/3"
-// import Chart3 from "@/data-chart/pie/2"
-// import { ChartWrapper } from "@/data-chart/wrapper"
+import { FinancialSummaryChart } from "@/components/charts/financial-summary-chart"
+import { ServiceDistributionChart } from "@/components/charts/service-distribution-chart"
 
 export default function ManajemenReportsPage() {
-  const reports = [
-    {
-      id: "1",
-      title: "Laporan Keuangan Bulanan",
-      description: "Ringkasan pendapatan dan pengeluaran bulan ini",
-      type: "Keuangan",
-      date: "2024-01-15",
-      status: "Ready",
-      size: "2.4 MB",
-    },
-    {
-      id: "2",
-      title: "Analisis Tren BPJS",
-      description: "Analisis tren klaim dan pembayaran BPJS 6 bulan terakhir",
-      type: "Analisis",
-      date: "2024-01-14",
-      status: "Ready",
-      size: "1.8 MB",
-    },
-    {
-      id: "3",
-      title: "Dashboard Eksekutif",
-      description: "KPI dan metrik utama untuk manajemen",
-      type: "Dashboard",
-      date: "2024-01-13",
-      status: "Processing",
-      size: "3.2 MB",
-    },
-    {
-      id: "4",
-      title: "Laporan Audit Keuangan",
-      description: "Audit trail dan compliance report",
-      type: "Audit",
-      date: "2024-01-12",
-      status: "Ready",
-      size: "4.1 MB",
-    },
-  ]
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "Ready":
-        return <Badge className="bg-green-100 text-green-800">Siap</Badge>
-      case "Processing":
-        return <Badge className="bg-yellow-100 text-yellow-800">Proses</Badge>
-      case "Error":
-        return <Badge variant="destructive">Error</Badge>
-      default:
-        return <Badge variant="secondary">{status}</Badge>
-    }
-  }
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case "Keuangan":
-        return "bg-blue-100 text-blue-800"
-      case "Analisis":
-        return "bg-purple-100 text-purple-800"
-      case "Dashboard":
-        return "bg-green-100 text-green-800"
-      case "Audit":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
-    }
-  }
+  const [dateRange, setDateRange] = useState("month")
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar role="manajemen" />
       <div className="flex-1 p-6">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Laporan & Analisis</h1>
-          <p className="text-gray-600">Akses laporan keuangan dan analisis strategis</p>
+          <h1 className="text-3xl font-bold text-gray-900">Laporan Keuangan</h1>
+          <p className="text-gray-600">Analisis pendapatan dan kinerja keuangan</p>
         </div>
 
-        {/* Summary Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Tren Pendapatan</CardTitle>
-              <CardDescription>6 bulan terakhir</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[200px] flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <TrendingUp className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">Revenue Trend</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Perbandingan Departemen</CardTitle>
-              <CardDescription>Kontribusi pendapatan</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[200px] flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <BarChart3 className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">Department Comparison</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Distribusi Pembayaran</CardTitle>
-              <CardDescription>BPJS vs Mandiri</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[200px] flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <BarChart3 className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">Payment Distribution</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-2">
+            <Select defaultValue={dateRange} onValueChange={setDateRange}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Pilih periode" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="day">Hari Ini</SelectItem>
+                <SelectItem value="week">Minggu Ini</SelectItem>
+                <SelectItem value="month">Bulan Ini</SelectItem>
+                <SelectItem value="quarter">Kuartal Ini</SelectItem>
+                <SelectItem value="year">Tahun Ini</SelectItem>
+                <SelectItem value="custom">Kustom</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button variant="outline">
+              <Calendar className="mr-2 h-4 w-4" />
+              Pilih Tanggal
+            </Button>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button variant="outline">
+              <Filter className="mr-2 h-4 w-4" />
+              Filter
+            </Button>
+            <Button variant="outline">
+              <Printer className="mr-2 h-4 w-4" />
+              Cetak
+            </Button>
+            <Button variant="outline">
+              <Download className="mr-2 h-4 w-4" />
+              Export
+            </Button>
+          </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Total Laporan</p>
-                  <p className="text-2xl font-bold">24</p>
-                </div>
-                <FileText className="h-8 w-8 text-muted-foreground" />
-              </div>
-            </CardContent>
-          </Card>
+        <Tabs defaultValue="summary" className="space-y-6">
+          <TabsList className="grid grid-cols-4 w-[600px]">
+            <TabsTrigger value="summary">Ringkasan</TabsTrigger>
+            <TabsTrigger value="bpjs">BPJS</TabsTrigger>
+            <TabsTrigger value="mandiri">Mandiri</TabsTrigger>
+            <TabsTrigger value="details">Detail</TabsTrigger>
+          </TabsList>
 
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Siap Download</p>
-                  <p className="text-2xl font-bold">18</p>
-                </div>
-                <Download className="h-8 w-8 text-muted-foreground" />
-              </div>
-            </CardContent>
-          </Card>
+          {/* Summary Tab */}
+          <TabsContent value="summary" className="space-y-6">
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Pendapatan</CardTitle>
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">Rp 1.18M</div>
+                  <div className="flex items-center mt-1">
+                    <Badge className="bg-green-100 text-green-800 mr-1">+7.3%</Badge>
+                    <span className="text-xs text-muted-foreground">vs bulan lalu</span>
+                  </div>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Sedang Proses</p>
-                  <p className="text-2xl font-bold">3</p>
-                </div>
-                <BarChart3 className="h-8 w-8 text-muted-foreground" />
-              </div>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Pendapatan BPJS</CardTitle>
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">Rp 880jt</div>
+                  <div className="flex items-center mt-1">
+                    <Badge className="bg-green-100 text-green-800 mr-1">+7.3%</Badge>
+                    <span className="text-xs text-muted-foreground">vs bulan lalu</span>
+                  </div>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Update Terakhir</p>
-                  <p className="text-2xl font-bold">2 jam</p>
-                </div>
-                <TrendingUp className="h-8 w-8 text-muted-foreground" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Pendapatan Mandiri</CardTitle>
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">Rp 300jt</div>
+                  <div className="flex items-center mt-1">
+                    <Badge className="bg-green-100 text-green-800 mr-1">+7.1%</Badge>
+                    <span className="text-xs text-muted-foreground">vs bulan lalu</span>
+                  </div>
+                </CardContent>
+              </Card>
 
-        {/* Reports List */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Daftar Laporan</CardTitle>
-                <CardDescription>Laporan yang tersedia untuk diunduh dan dilihat</CardDescription>
-              </div>
-              <div className="flex space-x-2">
-                <Button variant="outline">
-                  <Filter className="mr-2 h-4 w-4" />
-                  Filter
-                </Button>
-                <Button variant="outline">
-                  <Calendar className="mr-2 h-4 w-4" />
-                  Periode
-                </Button>
-              </div>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Jumlah Transaksi</CardTitle>
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">7,842</div>
+                  <div className="flex items-center mt-1">
+                    <Badge className="bg-green-100 text-green-800 mr-1">+5.4%</Badge>
+                    <span className="text-xs text-muted-foreground">vs bulan lalu</span>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {reports.map((report) => (
-                <div
-                  key={report.id}
-                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50"
-                >
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <FileText className="h-6 w-6 text-blue-600" />
+
+            {/* Financial Summary Chart */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Ringkasan Keuangan</CardTitle>
+                <CardDescription>Pendapatan BPJS vs Mandiri 6 bulan terakhir</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[400px]">
+                  <FinancialSummaryChart />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Service Distribution */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Distribusi Layanan</CardTitle>
+                  <CardDescription>Persentase pendapatan berdasarkan jenis layanan</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ServiceDistributionChart />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Ringkasan Kinerja</CardTitle>
+                  <CardDescription>Indikator kinerja keuangan utama</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium">Rasio BPJS vs Mandiri</span>
+                        <span className="text-sm font-medium">74.6% : 25.4%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "74.6%" }}></div>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900">{report.title}</h3>
-                      <p className="text-sm text-gray-600">{report.description}</p>
-                      <div className="flex items-center space-x-4 mt-2">
-                        <Badge className={getTypeColor(report.type)}>{report.type}</Badge>
-                        <span className="text-xs text-gray-500">{report.date}</span>
-                        <span className="text-xs text-gray-500">{report.size}</span>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium">Tingkat Klaim Sukses BPJS</span>
+                        <span className="text-sm font-medium">93.8%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="bg-green-500 h-2.5 rounded-full" style={{ width: "93.8%" }}></div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium">Rata-rata Nilai Transaksi</span>
+                        <span className="text-sm font-medium">Rp 150,470</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: "65%" }}></div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium">Pertumbuhan YoY</span>
+                        <span className="text-sm font-medium">+12.4%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="bg-yellow-500 h-2.5 rounded-full" style={{ width: "62%" }}></div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium">Target Pencapaian Q2</span>
+                        <span className="text-sm font-medium">98.5%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: "98.5%" }}></div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    {getStatusBadge(report.status)}
-                    <div className="flex space-x-2">
-                      <Button variant="ghost" size="sm">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" disabled={report.status !== "Ready"}>
-                        <Download className="h-4 w-4" />
-                      </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Top Performers */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Top Performers</CardTitle>
+                <CardDescription>Departemen dan dokter dengan pendapatan tertinggi</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-lg font-medium mb-3">Departemen</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">Poli Penyakit Dalam</span>
+                          <span className="text-sm font-medium">Rp 280jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "100%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">Poli Anak</span>
+                          <span className="text-sm font-medium">Rp 210jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "75%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">Poli Bedah</span>
+                          <span className="text-sm font-medium">Rp 180jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "64%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">Poli Kandungan</span>
+                          <span className="text-sm font-medium">Rp 165jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "59%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">Poli Gigi</span>
+                          <span className="text-sm font-medium">Rp 120jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "43%" }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-medium mb-3">Dokter</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">dr. Budi Santoso, Sp.PD</span>
+                          <span className="text-sm font-medium">Rp 95jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-green-600 h-2.5 rounded-full" style={{ width: "100%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">dr. Siti Rahayu, Sp.A</span>
+                          <span className="text-sm font-medium">Rp 82jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-green-600 h-2.5 rounded-full" style={{ width: "86%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">dr. Ahmad Wijaya, Sp.B</span>
+                          <span className="text-sm font-medium">Rp 78jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-green-600 h-2.5 rounded-full" style={{ width: "82%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">dr. Dewi Lestari, Sp.OG</span>
+                          <span className="text-sm font-medium">Rp 75jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-green-600 h-2.5 rounded-full" style={{ width: "79%" }}></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium">drg. Hendra Gunawan</span>
+                          <span className="text-sm font-medium">Rp 68jt</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5">
+                          <div className="bg-green-600 h-2.5 rounded-full" style={{ width: "72%" }}></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* BPJS Tab */}
+          <TabsContent value="bpjs">
+            <Card>
+              <CardHeader>
+                <CardTitle>Laporan BPJS</CardTitle>
+                <CardDescription>Detail laporan pendapatan BPJS</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Konten laporan BPJS akan ditampilkan di sini.</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Mandiri Tab */}
+          <TabsContent value="mandiri">
+            <Card>
+              <CardHeader>
+                <CardTitle>Laporan Mandiri</CardTitle>
+                <CardDescription>Detail laporan pendapatan mandiri</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Konten laporan mandiri akan ditampilkan di sini.</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Details Tab */}
+          <TabsContent value="details">
+            <Card>
+              <CardHeader>
+                <CardTitle>Detail Transaksi</CardTitle>
+                <CardDescription>Daftar lengkap transaksi dalam periode yang dipilih</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Konten detail transaksi akan ditampilkan di sini.</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )
