@@ -75,12 +75,6 @@ export default function AdminDashboard() {
               <CardDescription>Kelola sistem dan pengguna</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Link href="/admin/users">
-                <Button className="w-full justify-start">
-                  <Users className="mr-2 h-4 w-4" />
-                  Kelola Pengguna
-                </Button>
-              </Link>
               <Link href="/admin/audit">
                 <Button variant="outline" className="w-full justify-start">
                   <Shield className="mr-2 h-4 w-4" />

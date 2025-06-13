@@ -284,7 +284,7 @@ export default function ManajemenReportsPage() {
                     <div className="space-y-4">
                       <div>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">dr. Budi Santoso, Sp.PD</span>
+                          <span className="text-sm font-medium">dr. RafiAKem, Sp.PD</span>
                           <span className="text-sm font-medium">Rp 95jt</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -294,7 +294,7 @@ export default function ManajemenReportsPage() {
 
                       <div>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">dr. Siti Rahayu, Sp.A</span>
+                          <span className="text-sm font-medium">dr. Dony, Sp.A</span>
                           <span className="text-sm font-medium">Rp 82jt</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -304,7 +304,7 @@ export default function ManajemenReportsPage() {
 
                       <div>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">dr. Ahmad Wijaya, Sp.B</span>
+                          <span className="text-sm font-medium">dr. Alfa, Sp.B</span>
                           <span className="text-sm font-medium">Rp 78jt</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -314,7 +314,7 @@ export default function ManajemenReportsPage() {
 
                       <div>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">dr. Dewi Lestari, Sp.OG</span>
+                          <span className="text-sm font-medium">dr. DAN, Sp.OG</span>
                           <span className="text-sm font-medium">Rp 75jt</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -324,7 +324,7 @@ export default function ManajemenReportsPage() {
 
                       <div>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">drg. Hendra Gunawan</span>
+                          <span className="text-sm font-medium">drg. Azhar</span>
                           <span className="text-sm font-medium">Rp 68jt</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">

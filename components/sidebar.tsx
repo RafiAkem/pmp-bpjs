@@ -28,10 +28,8 @@ export function Sidebar({ role }: SidebarProps) {
 
   const adminMenuItems = [
     { icon: Home, label: "Dashboard", href: "/admin/dashboard" },
-    { icon: Users, label: "Kelola Pengguna", href: "/admin/users" },
     { icon: Shield, label: "Audit Trail", href: "/admin/audit" },
-    { icon: Database, label: "Backup Data", href: "/admin/backup" },
-    { icon: Settings, label: "Pengaturan", href: "/admin/settings" },
+    { icon: Database, label: "Backup Data", href: "/admin/backup" }
   ];
 
   const bendaharaMenuItems = [
@@ -52,14 +50,7 @@ export function Sidebar({ role }: SidebarProps) {
 
   const manajemenMenuItems = [
     { icon: Home, label: "Dashboard", href: "/manajemen/dashboard" },
-    {
-      icon: TrendingUp,
-      label: "Analisis Keuangan",
-      href: "/manajemen/analytics",
-    },
     { icon: FileText, label: "Laporan", href: "/manajemen/reports" },
-    { icon: BarChart3, label: "Tren & Forecast", href: "/manajemen/trends" },
-    { icon: Activity, label: "KPI Monitoring", href: "/manajemen/kpi" },
   ];
 
   const getMenuItems = () => {
